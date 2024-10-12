@@ -20,8 +20,16 @@ class Change {
         return map[element] ?: 0
     }
 
+    fun add(change: Change) {
+        change.map.forEach(::modify)
+    }
+
     fun add(element: MonetaryElement, count: Int): Change {
         return modify(element, count)
+    }
+
+    fun remove(change: Change) {
+        change.map.forEach(::remove)
     }
 
     fun remove(element: MonetaryElement, count: Int): Change {
@@ -59,8 +67,8 @@ class Change {
     companion object {
         fun max(): Change {
             val change = Change()
-            Bill.values().forEach { change.add(it, Int.MAX_VALUE) }
-            Coin.values().forEach { change.add(it, Int.MAX_VALUE) }
+            Bill.entries.forEach { change.add(it, Int.MAX_VALUE) }
+            Coin.entries.forEach { change.add(it, Int.MAX_VALUE) }
             return change
         }
 

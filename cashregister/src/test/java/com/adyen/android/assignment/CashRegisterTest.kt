@@ -11,10 +11,11 @@ import org.junit.Test
 class CashRegisterTest {
 
     @Test
-    fun `when change is available, the correct change is returned`() {
+    fun `when change is available, the minimal amount of change is returned`() {
         val initChange = Change()
             .add(Bill.FIFTY_EURO, 1)
             .add(Bill.TWENTY_EURO, 3)
+            .add(Coin.TWO_EURO, 5)
             .add(Coin.TWENTY_CENT, 2)
             .add(Coin.TEN_CENT, 4)
             .add(Coin.FIVE_CENT, 1)
@@ -27,7 +28,7 @@ class CashRegisterTest {
             .add(Coin.TWENTY_CENT, 2)
             .add(Coin.FIVE_CENT, 1)
 
-        assertEquals(cashRegister.performTransaction(price, paid), expected)
+        assertEquals(expected, cashRegister.performTransaction(price, paid))
     }
 
     @Test
@@ -55,7 +56,7 @@ class CashRegisterTest {
             .add(Coin.FIVE_CENT, 1)
         val expected = Change.none()
 
-        assertEquals(cashRegister.performTransaction(price, paid), expected)
+        assertEquals(expected, cashRegister.performTransaction(price, paid))
     }
 
 
@@ -84,16 +85,16 @@ class CashRegisterTest {
         val firstTransaction = Change().add(Bill.TWO_HUNDRED_EURO, 2)
         val firstExpectedChange = Change().add(Bill.ONE_HUNDRED_EURO, 1)
         assertEquals(
-            cashRegister.performTransaction(firstPrice, firstTransaction),
-            firstExpectedChange
+            firstExpectedChange,
+            cashRegister.performTransaction(firstPrice, firstTransaction)
         )
 
         val secondPrice = 100_00L
         val secondTransaction = Change().add(Bill.FIVE_HUNDRED_EURO, 1)
         val secondExpectedChange = Change().add(Bill.TWO_HUNDRED_EURO, 2)
         assertEquals(
-            cashRegister.performTransaction(secondPrice, secondTransaction),
-            secondExpectedChange
+            secondExpectedChange,
+            cashRegister.performTransaction(secondPrice, secondTransaction)
         )
     }
 }
