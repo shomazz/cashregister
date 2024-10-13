@@ -5,6 +5,8 @@ plugins {
     alias(libs.plugins.hiltAndroid)
 }
 
+apply(from = "local.gradle")
+
 android {
     namespace = "com.adyen.android.assignment"
     compileSdk = 34
@@ -17,7 +19,8 @@ android {
         versionName = "1.0"
 
         buildConfigField("String", "FOURSQUARE_BASE_URL", "\"https://api.foursquare.com/v3/\"")
-        buildConfigField("String", "API_KEY", "\"<YOU_API_KEY_GOES_HERE>\"")
+        buildConfigField("String", "API_KEY", "\"${project.findProperty("API_KEY")}\"")
+        buildConfigField("String", "AUTH_HEADER_NAME", "\"Authorization\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -67,6 +70,7 @@ dependencies {
     implementation(libs.androidx.material3)
 
     implementation(libs.retrofit)
+    implementation(libs.okhttp.logging.interceptor)
     implementation(libs.converter.moshi)
     implementation(libs.moshi.kotlin)
     implementation(libs.coroutines)
