@@ -7,8 +7,6 @@ data class PlaceDto(
     val id: String?,
     val categories: List<CategoryDto>?,
     val distance: Int?,
-    val geocodes: GeoCodeDto?,
     val location: LocationDto?,
     val name: String?,
-    val timezone: String?,
 )
