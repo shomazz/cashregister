@@ -6,10 +6,10 @@ import com.adyen.android.assignment.data.api.model.PlaceDto
 import com.adyen.android.assignment.domain.model.Category
 import com.adyen.android.assignment.domain.model.Place
 
-internal fun map(dto: PlaceDto): Place = with(dto) {
+internal fun map(dto: PlaceDto): Place? = with(dto) {
     Place(
-        id = id,
-        name = name,
+        id = id ?: return null,
+        name = name ?: return null,
         distance = distance,
         address = location?.formattedAddress,
         categories = categories?.map(::map) ?: emptyList()

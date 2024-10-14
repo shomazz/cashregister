@@ -1,3 +1,26 @@
 <resources>
-    <string name="app_name">Android Assignment</string>
+    <string name="app_name">Nearby Places</string>
+    <string name="app_description">Click ‘Start’ to get a list of venues around your current location.</string>
+
+    <string name="start_button">Start</string>
+    <string name="try_again_button">Try again</string>
+
+    <!-- Errors texts -->
+    <string name="error_nothing_found_title">Nothing Found Nearby</string>
+    <string name="error_nothing_found_description">We couldn’t find any places near your location.\nTry searching in a different area.</string>
+
+    <string name="error_client_side_title">Something Went Wrong</string>
+    <string name="error_client_side_description">We couldn’t process your request.\nPlease try again.</string>
+
+    <string name="error_service_unavailable_title">Service Unavailable</string>
+    <string name="error_service_unavailable_description">Our service is temporarily unavailable.\nPlease try again later.</string>
+
+    <string name="error_connection_problem_title">Connection Problem</string>
+    <string name="error_connection_problem_description">There was an issue connecting to the server.\nPlease try again.</string>
+
+    <string name="error_no_internet_title">No Internet Connection</string>
+    <string name="error_no_internet_description">Please check your internet connection and try again.</string>
+
+    <string name="error_unexpected_title">Oops, Something Went Wrong</string>
+    <string name="error_unexpected_description">An unexpected error occurred.\nPlease try again later.</string>
 </resources>
