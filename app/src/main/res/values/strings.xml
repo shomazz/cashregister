@@ -23,4 +23,9 @@
 
     <string name="error_unexpected_title">Oops, Something Went Wrong</string>
     <string name="error_unexpected_description">An unexpected error occurred.\nPlease try again later.</string>
+
+    <string name="error_location_not_found_title">Location Unavailable</string>
+    <string name="error_location_not_found_description">We couldn’t determine your location.\nPlease check your device settings.</string>
+
+    <string name="error_permission_is_required">Location permission is required to access your current location.</string>
 </resources>

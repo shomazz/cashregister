@@ -3,6 +3,7 @@ package com.adyen.android.assignment.ui.places_list
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adyen.android.assignment.R
+import com.adyen.android.assignment.domain.LocationRepository
 import com.adyen.android.assignment.domain.NearbyPlacesRepository
 import com.adyen.android.assignment.domain.model.Place
 import com.adyen.android.assignment.util.NetworkResult
@@ -16,6 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PlaceListViewModel @Inject constructor(
     private val placesRepository: NearbyPlacesRepository,
+    private val locationRepository: LocationRepository,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<PlaceListState>(PlaceListState.Initial)
@@ -24,21 +26,33 @@ class PlaceListViewModel @Inject constructor(
     private val _isRefreshing = MutableStateFlow(false)
     val isRefreshing: StateFlow<Boolean> = _isRefreshing
 
-
     fun loadNearbyPlaces() {
         viewModelScope.launch {
             _state.emit(PlaceListState.Loading)
-            val result = placesRepository.getNearbyPlaces(52.376510, 4.905890)
-            _state.emit(result.toState())
+            val result = getPlacesByLocation()
+            _state.emit(result)
         }
     }
 
     fun refreshPlaces() {
         viewModelScope.launch {
             _isRefreshing.value = true
-            val result = placesRepository.getNearbyPlaces(52.376540, 4.905990)
+            val result = getPlacesByLocation()
             _isRefreshing.value = false
-            _state.emit(result.toState())
+            _state.emit(result)
+        }
+    }
+
+    private suspend fun getPlacesByLocation(): PlaceListState {
+        val location = locationRepository.getLastLocation()
+        if (location == null) {
+            return PlaceListState.Error(
+                headerRes = R.string.error_location_not_found_title,
+                descriptionRes = R.string.error_location_not_found_description
+            )
+        } else {
+            val result = placesRepository.getNearbyPlaces(location.latitude, location.longitude)
+            return result.toState()
         }
     }
 

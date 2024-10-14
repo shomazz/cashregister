@@ -70,10 +70,13 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.material)
 
+    implementation(libs.play.services.location)
+
     implementation(libs.retrofit)
     implementation(libs.okhttp.logging.interceptor)
     implementation(libs.converter.moshi)
     implementation(libs.moshi.kotlin)
+
     implementation(libs.coroutines)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
